@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppVentesRouteImport } from './routes/_app.ventes'
+import { Route as AppStockRouteImport } from './routes/_app.stock'
 import { Route as AppDettesRouteImport } from './routes/_app.dettes'
 import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
 
@@ -29,6 +30,11 @@ const AppVentesRoute = AppVentesRouteImport.update({
   path: '/ventes',
   getParentRoute: () => AppRoute,
 } as any)
+const AppStockRoute = AppStockRouteImport.update({
+  id: '/stock',
+  path: '/stock',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppDettesRoute = AppDettesRouteImport.update({
   id: '/dettes',
   path: '/dettes',
@@ -44,12 +50,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof AppDashboardRoute
   '/dettes': typeof AppDettesRoute
+  '/stock': typeof AppStockRoute
   '/ventes': typeof AppVentesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof AppDashboardRoute
   '/dettes': typeof AppDettesRoute
+  '/stock': typeof AppStockRoute
   '/ventes': typeof AppVentesRoute
 }
 export interface FileRoutesById {
@@ -58,19 +66,21 @@ export interface FileRoutesById {
   '/_app': typeof AppRouteWithChildren
   '/_app/dashboard': typeof AppDashboardRoute
   '/_app/dettes': typeof AppDettesRoute
+  '/_app/stock': typeof AppStockRoute
   '/_app/ventes': typeof AppVentesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/dettes' | '/ventes'
+  fullPaths: '/' | '/dashboard' | '/dettes' | '/stock' | '/ventes'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/dettes' | '/ventes'
+  to: '/' | '/dashboard' | '/dettes' | '/stock' | '/ventes'
   id:
     | '__root__'
     | '/'
     | '/_app'
     | '/_app/dashboard'
     | '/_app/dettes'
+    | '/_app/stock'
     | '/_app/ventes'
   fileRoutesById: FileRoutesById
 }
@@ -102,6 +112,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppVentesRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/stock': {
+      id: '/_app/stock'
+      path: '/stock'
+      fullPath: '/stock'
+      preLoaderRoute: typeof AppStockRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/dettes': {
       id: '/_app/dettes'
       path: '/dettes'
@@ -122,12 +139,14 @@ declare module '@tanstack/react-router' {
 interface AppRouteChildren {
   AppDashboardRoute: typeof AppDashboardRoute
   AppDettesRoute: typeof AppDettesRoute
+  AppStockRoute: typeof AppStockRoute
   AppVentesRoute: typeof AppVentesRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppDashboardRoute: AppDashboardRoute,
   AppDettesRoute: AppDettesRoute,
+  AppStockRoute: AppStockRoute,
   AppVentesRoute: AppVentesRoute,
 }
 
