@@ -13,6 +13,7 @@ import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppVentesRouteImport } from './routes/_app.ventes'
 import { Route as AppStockRouteImport } from './routes/_app.stock'
+import { Route as AppScoreRouteImport } from './routes/_app.score'
 import { Route as AppDettesRouteImport } from './routes/_app.dettes'
 import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
 
@@ -35,6 +36,11 @@ const AppStockRoute = AppStockRouteImport.update({
   path: '/stock',
   getParentRoute: () => AppRoute,
 } as any)
+const AppScoreRoute = AppScoreRouteImport.update({
+  id: '/score',
+  path: '/score',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppDettesRoute = AppDettesRouteImport.update({
   id: '/dettes',
   path: '/dettes',
@@ -50,6 +56,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof AppDashboardRoute
   '/dettes': typeof AppDettesRoute
+  '/score': typeof AppScoreRoute
   '/stock': typeof AppStockRoute
   '/ventes': typeof AppVentesRoute
 }
@@ -57,6 +64,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof AppDashboardRoute
   '/dettes': typeof AppDettesRoute
+  '/score': typeof AppScoreRoute
   '/stock': typeof AppStockRoute
   '/ventes': typeof AppVentesRoute
 }
@@ -66,20 +74,22 @@ export interface FileRoutesById {
   '/_app': typeof AppRouteWithChildren
   '/_app/dashboard': typeof AppDashboardRoute
   '/_app/dettes': typeof AppDettesRoute
+  '/_app/score': typeof AppScoreRoute
   '/_app/stock': typeof AppStockRoute
   '/_app/ventes': typeof AppVentesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/dettes' | '/stock' | '/ventes'
+  fullPaths: '/' | '/dashboard' | '/dettes' | '/score' | '/stock' | '/ventes'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/dettes' | '/stock' | '/ventes'
+  to: '/' | '/dashboard' | '/dettes' | '/score' | '/stock' | '/ventes'
   id:
     | '__root__'
     | '/'
     | '/_app'
     | '/_app/dashboard'
     | '/_app/dettes'
+    | '/_app/score'
     | '/_app/stock'
     | '/_app/ventes'
   fileRoutesById: FileRoutesById
@@ -119,6 +129,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppStockRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/score': {
+      id: '/_app/score'
+      path: '/score'
+      fullPath: '/score'
+      preLoaderRoute: typeof AppScoreRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/dettes': {
       id: '/_app/dettes'
       path: '/dettes'
@@ -139,6 +156,7 @@ declare module '@tanstack/react-router' {
 interface AppRouteChildren {
   AppDashboardRoute: typeof AppDashboardRoute
   AppDettesRoute: typeof AppDettesRoute
+  AppScoreRoute: typeof AppScoreRoute
   AppStockRoute: typeof AppStockRoute
   AppVentesRoute: typeof AppVentesRoute
 }
@@ -146,6 +164,7 @@ interface AppRouteChildren {
 const AppRouteChildren: AppRouteChildren = {
   AppDashboardRoute: AppDashboardRoute,
   AppDettesRoute: AppDettesRoute,
+  AppScoreRoute: AppScoreRoute,
   AppStockRoute: AppStockRoute,
   AppVentesRoute: AppVentesRoute,
 }
