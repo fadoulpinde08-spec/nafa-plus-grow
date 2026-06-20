@@ -9,38 +9,105 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppVentesRouteImport } from './routes/_app.ventes'
+import { Route as AppStockRouteImport } from './routes/_app.stock'
+import { Route as AppScoreRouteImport } from './routes/_app.score'
+import { Route as AppDettesRouteImport } from './routes/_app.dettes'
+import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
 
+const AppRoute = AppRouteImport.update({
+  id: '/_app',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppVentesRoute = AppVentesRouteImport.update({
+  id: '/ventes',
+  path: '/ventes',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppStockRoute = AppStockRouteImport.update({
+  id: '/stock',
+  path: '/stock',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppScoreRoute = AppScoreRouteImport.update({
+  id: '/score',
+  path: '/score',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDettesRoute = AppDettesRouteImport.update({
+  id: '/dettes',
+  path: '/dettes',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDashboardRoute = AppDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dashboard': typeof AppDashboardRoute
+  '/dettes': typeof AppDettesRoute
+  '/score': typeof AppScoreRoute
+  '/stock': typeof AppStockRoute
+  '/ventes': typeof AppVentesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dashboard': typeof AppDashboardRoute
+  '/dettes': typeof AppDettesRoute
+  '/score': typeof AppScoreRoute
+  '/stock': typeof AppStockRoute
+  '/ventes': typeof AppVentesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_app': typeof AppRouteWithChildren
+  '/_app/dashboard': typeof AppDashboardRoute
+  '/_app/dettes': typeof AppDettesRoute
+  '/_app/score': typeof AppScoreRoute
+  '/_app/stock': typeof AppStockRoute
+  '/_app/ventes': typeof AppVentesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/dashboard' | '/dettes' | '/score' | '/stock' | '/ventes'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/dashboard' | '/dettes' | '/score' | '/stock' | '/ventes'
+  id:
+    | '__root__'
+    | '/'
+    | '/_app'
+    | '/_app/dashboard'
+    | '/_app/dettes'
+    | '/_app/score'
+    | '/_app/stock'
+    | '/_app/ventes'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRoute: typeof AppRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/_app': {
+      id: '/_app'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +115,66 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_app/ventes': {
+      id: '/_app/ventes'
+      path: '/ventes'
+      fullPath: '/ventes'
+      preLoaderRoute: typeof AppVentesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/stock': {
+      id: '/_app/stock'
+      path: '/stock'
+      fullPath: '/stock'
+      preLoaderRoute: typeof AppStockRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/score': {
+      id: '/_app/score'
+      path: '/score'
+      fullPath: '/score'
+      preLoaderRoute: typeof AppScoreRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/dettes': {
+      id: '/_app/dettes'
+      path: '/dettes'
+      fullPath: '/dettes'
+      preLoaderRoute: typeof AppDettesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/dashboard': {
+      id: '/_app/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AppDashboardRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
+interface AppRouteChildren {
+  AppDashboardRoute: typeof AppDashboardRoute
+  AppDettesRoute: typeof AppDettesRoute
+  AppScoreRoute: typeof AppScoreRoute
+  AppStockRoute: typeof AppStockRoute
+  AppVentesRoute: typeof AppVentesRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppDashboardRoute: AppDashboardRoute,
+  AppDettesRoute: AppDettesRoute,
+  AppScoreRoute: AppScoreRoute,
+  AppStockRoute: AppStockRoute,
+  AppVentesRoute: AppVentesRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRoute: AppRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
