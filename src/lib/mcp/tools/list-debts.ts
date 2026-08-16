@@ -1,6 +1,6 @@
 import { defineTool } from "@lovable.dev/mcp-js";
 import { z } from "zod";
-import { debts } from "@/lib/mock-data";
+import { store } from "../store";
 
 export default defineTool({
   name: "list_customer_debts",
@@ -15,6 +15,7 @@ export default defineTool({
   },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: ({ minAmount }) => {
+    const debts = store().debts;
     const rows = minAmount ? debts.filter((d) => d.amount >= minAmount) : debts;
     const total = rows.reduce((s, d) => s + d.amount, 0);
     return {
