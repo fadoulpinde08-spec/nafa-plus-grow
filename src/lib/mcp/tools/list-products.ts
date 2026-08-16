@@ -1,6 +1,6 @@
 import { defineTool } from "@lovable.dev/mcp-js";
 import { z } from "zod";
-import { products } from "@/lib/mock-data";
+import { store } from "../store";
 
 export default defineTool({
   name: "list_products",
@@ -14,6 +14,7 @@ export default defineTool({
   },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: ({ status }) => {
+    const products = store().products;
     const rows = status ? products.filter((p) => p.status === status) : products;
     return {
       content: [{ type: "text", text: JSON.stringify(rows, null, 2) }],
