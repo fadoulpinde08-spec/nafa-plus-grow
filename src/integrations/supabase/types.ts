@@ -14,13 +14,290 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      customers: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          phone: string | null
+          photo_url: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          phone?: string | null
+          photo_url?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          phone?: string | null
+          photo_url?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      debt_payments: {
+        Row: {
+          amount: number
+          created_at: string
+          customer_id: string
+          id: string
+          method: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          customer_id: string
+          id?: string
+          method?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          customer_id?: string
+          id?: string
+          method?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "debt_payments_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customer_balances"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "debt_payments_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      products: {
+        Row: {
+          cost: number
+          created_at: string
+          emoji: string
+          id: string
+          low_stock_threshold: number
+          name: string
+          price: number
+          stock: number
+          unit: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          cost?: number
+          created_at?: string
+          emoji?: string
+          id?: string
+          low_stock_threshold?: number
+          name: string
+          price?: number
+          stock?: number
+          unit?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          cost?: number
+          created_at?: string
+          emoji?: string
+          id?: string
+          low_stock_threshold?: number
+          name?: string
+          price?: number
+          stock?: number
+          unit?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          full_name: string
+          id: string
+          phone: string | null
+          shop_name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          full_name?: string
+          id: string
+          phone?: string | null
+          shop_name?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          full_name?: string
+          id?: string
+          phone?: string | null
+          shop_name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      sale_items: {
+        Row: {
+          created_at: string
+          id: string
+          product_id: string | null
+          product_name: string
+          qty: number
+          sale_id: string
+          unit_cost: number
+          unit_price: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          product_id?: string | null
+          product_name: string
+          qty: number
+          sale_id: string
+          unit_cost?: number
+          unit_price: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          product_id?: string | null
+          product_name?: string
+          qty?: number
+          sale_id?: string
+          unit_cost?: number
+          unit_price?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sale_items_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "sale_items_sale_id_fkey"
+            columns: ["sale_id"]
+            isOneToOne: false
+            referencedRelation: "sales"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sales: {
+        Row: {
+          cost_total: number
+          created_at: string
+          customer_id: string | null
+          id: string
+          note: string | null
+          payment_method: string
+          total: number
+          user_id: string
+        }
+        Insert: {
+          cost_total?: number
+          created_at?: string
+          customer_id?: string | null
+          id?: string
+          note?: string | null
+          payment_method?: string
+          total?: number
+          user_id: string
+        }
+        Update: {
+          cost_total?: number
+          created_at?: string
+          customer_id?: string | null
+          id?: string
+          note?: string | null
+          payment_method?: string
+          total?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sales_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customer_balances"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "sales_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
-      [_ in never]: never
+      customer_balances: {
+        Row: {
+          balance: number | null
+          id: string | null
+          last_sale_at: string | null
+          name: string | null
+          phone: string | null
+          photo_url: string | null
+          user_id: string | null
+        }
+        Insert: {
+          balance?: never
+          id?: string | null
+          last_sale_at?: never
+          name?: string | null
+          phone?: string | null
+          photo_url?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          balance?: never
+          id?: string | null
+          last_sale_at?: never
+          name?: string | null
+          phone?: string | null
+          photo_url?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
-      [_ in never]: never
+      record_sale: {
+        Args: {
+          p_customer_name?: string
+          p_customer_phone?: string
+          p_items: Json
+          p_note?: string
+          p_payment_method: string
+        }
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never
