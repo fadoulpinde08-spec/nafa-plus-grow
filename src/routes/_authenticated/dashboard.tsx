@@ -1,13 +1,25 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { Bell, Eye, Menu, Mic, TrendingUp, ArrowRight, AlertTriangle, Plus } from "lucide-react";
-import { fmtFCFA, products } from "../lib/mock-data";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
+import { Bell, Eye, LogOut, Mic, TrendingUp, ArrowRight, AlertTriangle, Plus } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { fmtFCFA, products } from "@/lib/mock-data";
 
-export const Route = createFileRoute("/_app/dashboard")({
+export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({ meta: [{ title: "Tableau de bord — Nafa+" }] }),
   component: Dashboard,
 });
 
 function Dashboard() {
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  async function signOut() {
+    await queryClient.cancelQueries();
+    queryClient.clear();
+    await supabase.auth.signOut();
+    navigate({ to: "/auth", replace: true });
+  }
+
   const lowStock = products.filter((p) => p.status !== "ok");
 
   return (
@@ -16,8 +28,12 @@ function Dashboard() {
       <header className="relative overflow-hidden rounded-b-[28px] bg-[var(--primary-deep)] px-5 pb-8 pt-[max(env(safe-area-inset-top),16px)] text-white">
         <div className="pointer-events-none absolute -right-12 -top-12 h-48 w-48 rounded-full bg-gold/15 blur-3xl" />
         <div className="relative flex items-center justify-between pt-3">
-          <button className="grid h-10 w-10 place-items-center rounded-xl bg-white/10">
-            <Menu className="h-5 w-5" />
+          <button
+            onClick={signOut}
+            aria-label="Se déconnecter"
+            className="grid h-10 w-10 place-items-center rounded-xl bg-white/10"
+          >
+            <LogOut className="h-5 w-5" />
           </button>
           <button className="relative grid h-10 w-10 place-items-center rounded-xl bg-white/10">
             <Bell className="h-5 w-5" />

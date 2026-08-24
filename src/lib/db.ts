@@ -106,9 +106,9 @@ export async function recordSale(input: {
   const { data, error } = await supabase.rpc("record_sale", {
     p_items: input.items,
     p_payment_method: input.payment_method,
-    p_customer_name: input.customer_name ?? null,
-    p_customer_phone: input.customer_phone ?? null,
-    p_note: null,
+    p_customer_name: input.customer_name ?? undefined,
+    p_customer_phone: input.customer_phone ?? undefined,
+    p_note: undefined,
   });
   if (error) throw error;
   return data as string;
