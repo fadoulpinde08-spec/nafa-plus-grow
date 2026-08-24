@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Bell, Eye, Menu, Mic, TrendingUp, ArrowRight, AlertTriangle, Plus } from "lucide-react";
-import { fmtFCFA, products } from "../lib/mock-data";
+import { fmtFCFA, products } from "@/lib/mock-data";
 
-export const Route = createFileRoute("/_app/dashboard")({
+export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({ meta: [{ title: "Tableau de bord — Nafa+" }] }),
   component: Dashboard,
 });

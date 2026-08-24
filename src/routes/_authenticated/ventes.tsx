@@ -1,9 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, Mic, Plus, Minus, Search, ScanLine, Save, CreditCard } from "lucide-react";
 import { useState } from "react";
-import { fmtFCFA, products } from "../lib/mock-data";
+import { fmtFCFA, products } from "@/lib/mock-data";
 
-export const Route = createFileRoute("/_app/ventes")({
+export const Route = createFileRoute("/_authenticated/ventes")({
   head: () => ({ meta: [{ title: "Nouvelle vente — Nafa+" }] }),
   component: VentesPage,
 });

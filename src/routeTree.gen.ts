@@ -10,15 +10,15 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AppRouteImport } from './routes/_app'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
-import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
-import { Route as AppDettesRouteImport } from './routes/_app.dettes'
-import { Route as AppScoreRouteImport } from './routes/_app.score'
-import { Route as AppStockRouteImport } from './routes/_app.stock'
-import { Route as AppVentesRouteImport } from './routes/_app.ventes'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedDettesRouteImport } from './routes/_authenticated/dettes'
+import { Route as AuthenticatedScoreRouteImport } from './routes/_authenticated/score'
+import { Route as AuthenticatedStockRouteImport } from './routes/_authenticated/stock'
+import { Route as AuthenticatedVentesRouteImport } from './routes/_authenticated/ventes'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 
 const IndexRoute = IndexRouteImport.update({
@@ -26,8 +26,8 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppRoute = AppRouteImport.update({
-  id: '/_app',
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const McpRoute = McpRouteImport.update({
@@ -47,30 +47,30 @@ const Char91DotwellKnownChar93OauthProtectedResourceRoute =
     path: '/.well-known/oauth-protected-resource',
     getParentRoute: () => rootRouteImport,
   } as any)
-const AppDashboardRoute = AppDashboardRouteImport.update({
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
-  getParentRoute: () => AppRoute,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AppDettesRoute = AppDettesRouteImport.update({
+const AuthenticatedDettesRoute = AuthenticatedDettesRouteImport.update({
   id: '/dettes',
   path: '/dettes',
-  getParentRoute: () => AppRoute,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AppScoreRoute = AppScoreRouteImport.update({
+const AuthenticatedScoreRoute = AuthenticatedScoreRouteImport.update({
   id: '/score',
   path: '/score',
-  getParentRoute: () => AppRoute,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AppStockRoute = AppStockRouteImport.update({
+const AuthenticatedStockRoute = AuthenticatedStockRouteImport.update({
   id: '/stock',
   path: '/stock',
-  getParentRoute: () => AppRoute,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AppVentesRoute = AppVentesRouteImport.update({
+const AuthenticatedVentesRoute = AuthenticatedVentesRouteImport.update({
   id: '/ventes',
   path: '/ventes',
-  getParentRoute: () => AppRoute,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const Char91DotmcpChar93InvokeToolToolRoute =
   Char91DotmcpChar93InvokeToolToolRouteImport.update({
@@ -84,11 +84,11 @@ export interface FileRoutesByFullPath {
   '/mcp': typeof McpRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
-  '/dashboard': typeof AppDashboardRoute
-  '/dettes': typeof AppDettesRoute
-  '/score': typeof AppScoreRoute
-  '/stock': typeof AppStockRoute
-  '/ventes': typeof AppVentesRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/dettes': typeof AuthenticatedDettesRoute
+  '/score': typeof AuthenticatedScoreRoute
+  '/stock': typeof AuthenticatedStockRoute
+  '/ventes': typeof AuthenticatedVentesRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesByTo {
@@ -96,25 +96,25 @@ export interface FileRoutesByTo {
   '/mcp': typeof McpRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
-  '/dashboard': typeof AppDashboardRoute
-  '/dettes': typeof AppDettesRoute
-  '/score': typeof AppScoreRoute
-  '/stock': typeof AppStockRoute
-  '/ventes': typeof AppVentesRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/dettes': typeof AuthenticatedDettesRoute
+  '/score': typeof AuthenticatedScoreRoute
+  '/stock': typeof AuthenticatedStockRoute
+  '/ventes': typeof AuthenticatedVentesRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/_app': typeof AppRouteWithChildren
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/mcp': typeof McpRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
-  '/_app/dashboard': typeof AppDashboardRoute
-  '/_app/dettes': typeof AppDettesRoute
-  '/_app/score': typeof AppScoreRoute
-  '/_app/stock': typeof AppStockRoute
-  '/_app/ventes': typeof AppVentesRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/dettes': typeof AuthenticatedDettesRoute
+  '/_authenticated/score': typeof AuthenticatedScoreRoute
+  '/_authenticated/stock': typeof AuthenticatedStockRoute
+  '/_authenticated/ventes': typeof AuthenticatedVentesRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRouteTypes {
@@ -145,21 +145,21 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/_app'
+    | '/_authenticated'
     | '/mcp'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
-    | '/_app/dashboard'
-    | '/_app/dettes'
-    | '/_app/score'
-    | '/_app/stock'
-    | '/_app/ventes'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/dettes'
+    | '/_authenticated/score'
+    | '/_authenticated/stock'
+    | '/_authenticated/ventes'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AppRoute: typeof AppRouteWithChildren
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   McpRoute: typeof McpRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -175,11 +175,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_app': {
-      id: '/_app'
+    '/_authenticated': {
+      id: '/_authenticated'
       path: ''
       fullPath: '/'
-      preLoaderRoute: typeof AppRouteImport
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mcp': {
@@ -203,40 +203,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_app/dashboard': {
-      id: '/_app/dashboard'
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
       path: '/dashboard'
       fullPath: '/dashboard'
-      preLoaderRoute: typeof AppDashboardRouteImport
-      parentRoute: typeof AppRoute
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_app/dettes': {
-      id: '/_app/dettes'
+    '/_authenticated/dettes': {
+      id: '/_authenticated/dettes'
       path: '/dettes'
       fullPath: '/dettes'
-      preLoaderRoute: typeof AppDettesRouteImport
-      parentRoute: typeof AppRoute
+      preLoaderRoute: typeof AuthenticatedDettesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_app/score': {
-      id: '/_app/score'
+    '/_authenticated/score': {
+      id: '/_authenticated/score'
       path: '/score'
       fullPath: '/score'
-      preLoaderRoute: typeof AppScoreRouteImport
-      parentRoute: typeof AppRoute
+      preLoaderRoute: typeof AuthenticatedScoreRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_app/stock': {
-      id: '/_app/stock'
+    '/_authenticated/stock': {
+      id: '/_authenticated/stock'
       path: '/stock'
       fullPath: '/stock'
-      preLoaderRoute: typeof AppStockRouteImport
-      parentRoute: typeof AppRoute
+      preLoaderRoute: typeof AuthenticatedStockRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_app/ventes': {
-      id: '/_app/ventes'
+    '/_authenticated/ventes': {
+      id: '/_authenticated/ventes'
       path: '/ventes'
       fullPath: '/ventes'
-      preLoaderRoute: typeof AppVentesRouteImport
-      parentRoute: typeof AppRoute
+      preLoaderRoute: typeof AuthenticatedVentesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/.mcp/invoke-tool/$tool': {
       id: '/.mcp/invoke-tool/$tool'
@@ -248,27 +248,28 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface AppRouteChildren {
-  AppDashboardRoute: typeof AppDashboardRoute
-  AppDettesRoute: typeof AppDettesRoute
-  AppScoreRoute: typeof AppScoreRoute
-  AppStockRoute: typeof AppStockRoute
-  AppVentesRoute: typeof AppVentesRoute
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedDettesRoute: typeof AuthenticatedDettesRoute
+  AuthenticatedScoreRoute: typeof AuthenticatedScoreRoute
+  AuthenticatedStockRoute: typeof AuthenticatedStockRoute
+  AuthenticatedVentesRoute: typeof AuthenticatedVentesRoute
 }
 
-const AppRouteChildren: AppRouteChildren = {
-  AppDashboardRoute: AppDashboardRoute,
-  AppDettesRoute: AppDettesRoute,
-  AppScoreRoute: AppScoreRoute,
-  AppStockRoute: AppStockRoute,
-  AppVentesRoute: AppVentesRoute,
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedDettesRoute: AuthenticatedDettesRoute,
+  AuthenticatedScoreRoute: AuthenticatedScoreRoute,
+  AuthenticatedStockRoute: AuthenticatedStockRoute,
+  AuthenticatedVentesRoute: AuthenticatedVentesRoute,
 }
 
-const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AppRoute: AppRouteWithChildren,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   McpRoute: McpRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:

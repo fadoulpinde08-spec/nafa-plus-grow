@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, HelpCircle, Check, Circle, Star, FileText, CreditCard, Shield, Award, ArrowRight } from "lucide-react";
 
-export const Route = createFileRoute("/_app/score")({
+export const Route = createFileRoute("/_authenticated/score")({
   head: () => ({ meta: [{ title: "Score de confiance — Nafa+" }] }),
   component: ScorePage,
 });
