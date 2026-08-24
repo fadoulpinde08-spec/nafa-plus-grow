@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Loader2, Lock, Mail, Store, User } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable";
 import { Logo } from "@/components/Logo";
 
 export const Route = createFileRoute("/auth")({
@@ -74,14 +73,6 @@ function AuthPage() {
       toast.error(err instanceof Error ? err.message : "Une erreur est survenue");
     } finally {
       setLoading(false);
-    }
-  }
-
-  async function onGoogle() {
-    try {
-      await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
-    } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Connexion Google impossible");
     }
   }
 
@@ -181,19 +172,6 @@ function AuthPage() {
             {mode === "login" ? "Se connecter" : "Créer mon compte"}
           </button>
 
-          <div className="flex items-center gap-3 py-1">
-            <span className="h-px flex-1 bg-border" />
-            <span className="text-[11px] uppercase tracking-wider text-muted-foreground">ou</span>
-            <span className="h-px flex-1 bg-border" />
-          </div>
-
-          <button
-            type="button"
-            onClick={onGoogle}
-            className="flex h-13 w-full items-center justify-center gap-2 rounded-2xl border border-border bg-card py-3.5 text-sm font-semibold text-foreground"
-          >
-            Continuer avec Google
-          </button>
         </form>
       )}
 
