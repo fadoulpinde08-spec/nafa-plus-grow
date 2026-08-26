@@ -195,4 +195,4 @@ Outil destructif : la créance est réduite, et supprimée dès qu'elle atteint 
 1. Appeler `list_products` avant `create_sale` pour récupérer les `productId` réels.
 2. Vérifier `structuredContent` plutôt que de parser le texte.
 3. Traiter `mark_debt_paid` et `create_sale` comme non idempotents : ne pas rejouer un appel après un timeout sans vérifier d'abord via `list_customer_debts` / `sales_summary`.
-4. Ne pas exposer publiquement l'URL du serveur tant qu'aucune authentification n'est en place.
+4. Le serveur exige désormais un jeton OAuth (Bearer) émis par l'authentification Nafa+ : les clients MCP doivent s'authentifier avant d'appeler les outils.
